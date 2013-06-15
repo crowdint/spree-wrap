@@ -1,7 +1,3 @@
 require "spree/wrap/version"
-
-module Spree
-  module Wrap
-    # Your code goes here...
-  end
-end
+BubbleWrap.require 'motion/spree.rb'
+BubbleWrap.require 'motion/spree/product.rb'
