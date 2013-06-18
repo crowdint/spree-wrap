@@ -7,8 +7,6 @@ module Spree
 
       module ClassMethods
         def products(&block)
-          json = []
-
           BW::HTTP.get(Spree.products_uri) do |response|
             json = BW::JSON.parse(response.body.to_str)
             products = json["products"].map do |product_json|
@@ -17,12 +15,23 @@ module Spree
 
             block.call products
           end
+        end
 
-          json
+        def product(id, &block)
+          BW::HTTP.get(Spree.product_uri(id)) do |response|
+            json = BW::JSON.parse(response.body.to_str)
+            product = Spree::Product.new(json)
+
+            block.call product
+          end
         end
 
         def products_uri
           Spree.endpoint + "/products"
+        end
+
+        def product_uri(id)
+          products_uri + "/#{id}"
         end
       end
     end
