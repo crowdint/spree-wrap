@@ -3,9 +3,7 @@ module Spree
   # This module defines common behavior for all the Models
   #
   module Model
-    def self.included(base)
-      base.send(:extend, ClassMethods)
-    end
+    extend MotionSupport::Concern
 
     module ClassMethods
       #

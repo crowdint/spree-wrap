@@ -1,4 +1,6 @@
 require "spree/wrap/version"
+require "motion-support/concern"
+require "motion-support/inflector"
 
 #
 # Models

@@ -1,9 +1,7 @@
 module Spree
   module API
     module Product
-      def self.included(base)
-        base.send(:extend, ClassMethods)
-      end
+      extend MotionSupport::Concern
 
       #
       # This module defines all the API calls related to Products.
