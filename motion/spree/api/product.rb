@@ -24,7 +24,7 @@ module Spree
         #   end
         #
         def products(&block)
-          collection_query("products", Spree::Product, Spree.products_uri, block)
+          collection_query("products", Spree::Product, Spree.products_uri, &block)
         end
 
         #
@@ -43,7 +43,7 @@ module Spree
         # Note that the API will attempt a permalink lookup before an ID lookup.
         #
         def product(id, &block)
-          object_query(Spree::Product, product_uri(id), block)
+          object_query(Spree::Product, product_uri(id), &block)
         end
 
         def products_uri
