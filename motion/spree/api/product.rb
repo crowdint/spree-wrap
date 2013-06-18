@@ -14,6 +14,8 @@ module Spree
       # http://api.spreecommerce.com/v1/products/#list-products
       #
       module ClassMethods
+        include Query
+
         #
         # List products visible to the authenticated user.
         #
@@ -22,14 +24,7 @@ module Spree
         #   end
         #
         def products(&block)
-          BW::HTTP.get(Spree.products_uri) do |response|
-            json = BW::JSON.parse(response.body.to_str)
-            products = json["products"].map do |product_json|
-              Spree::Product.new(product_json)
-            end
-
-            block.call products
-          end
+          collection_query("products", Spree::Product, Spree.products_uri, block)
         end
 
         #
@@ -48,12 +43,7 @@ module Spree
         # Note that the API will attempt a permalink lookup before an ID lookup.
         #
         def product(id, &block)
-          BW::HTTP.get(Spree.product_uri(id)) do |response|
-            json    = BW::JSON.parse(response.body.to_str)
-            product = Spree::Product.new(json)
-
-            block.call product
-          end
+          object_query(Spree::Product, product_uri(id), block)
         end
 
         def products_uri
