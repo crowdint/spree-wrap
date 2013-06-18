@@ -5,3 +5,4 @@ require 'bubble-wrap'
 Bundler.setup
 Bundler.require
 require 'bubble-wrap/test'
+require 'webstub'
