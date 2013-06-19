@@ -1,6 +1,7 @@
 require "spree/wrap/version"
 require "motion-support/concern"
-require "motion-support/inflector"
+
+BubbleWrap.require 'motion/spree/inflector.rb'
 
 #
 # Models
@@ -12,6 +13,7 @@ BubbleWrap.require 'motion/spree/product.rb'
 # API Queries
 #
 BubbleWrap.require 'motion/spree/api/query.rb'
+BubbleWrap.require 'motion/spree/api/uri_helpers.rb'
 BubbleWrap.require 'motion/spree/api/product.rb'
 
 #

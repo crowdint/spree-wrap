@@ -13,6 +13,7 @@ module Spree
       #
       module ClassMethods
         include Query
+        include URIHelpers
 
         #
         # List products visible to the authenticated user.
@@ -42,14 +43,6 @@ module Spree
         #
         def product(id, &block)
           object_query(Spree::Product, product_uri(id), &block)
-        end
-
-        def products_uri
-          Spree.endpoint + "/products"
-        end
-
-        def product_uri(id)
-          products_uri + "/#{id}"
         end
       end
     end
