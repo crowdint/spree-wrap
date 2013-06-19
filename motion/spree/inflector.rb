@@ -13,15 +13,14 @@ module Spree
 
     #
     #
-    # Extracts the underscored resource name from the class name
+    # Extracts the underscored resource name from the Module name
     #
-    # Example, for Spree::Product::ClassMethods it returns:
+    # Example, for Spree::Product it returns:
     #
     #   product
     #
     def self.extract_resource_name(class_name)
-      class_name =~ /(.+)::(.+)::ClassMethods/
-      $2.underscore
+      (class_name =~ /(.+)::(.+)$/) ? $2.underscore : ""
     end
   end
 end

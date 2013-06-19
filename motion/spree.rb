@@ -13,5 +13,5 @@ module Spree
     @endpoint = uri
   end
 
-  include Spree::API::Product
+  extend Spree::API::Product
 end

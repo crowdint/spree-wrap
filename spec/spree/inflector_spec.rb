@@ -6,8 +6,8 @@ describe Spree::Inflector do
   end
 
   describe ".extract_resource_name" do
-    it "extracts the resource name out of a Spree::xx::ClassMethod module name" do
-      Spree::Inflector.extract_resource_name("Spree::Product::ClassMethods").should == "product"
+    it "extracts the resource name out of a Spree::xx module name" do
+      Spree::Inflector.extract_resource_name("Spree::Product").should == "product"
     end
   end
 end
