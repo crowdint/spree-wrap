@@ -21,4 +21,5 @@ module Spree
   end
 
   extend Spree::API::Product
+  extend Spree::API::Variant
 end
