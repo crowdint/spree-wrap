@@ -11,6 +11,7 @@ BubbleWrap.require 'motion/spree/country.rb'
 BubbleWrap.require 'motion/spree/product.rb'
 BubbleWrap.require 'motion/spree/taxonomy.rb'
 BubbleWrap.require 'motion/spree/variant.rb'
+BubbleWrap.require 'motion/spree/zone.rb'
 
 #
 # API Queries
@@ -22,6 +23,7 @@ BubbleWrap.require 'motion/spree/api/country.rb'
 BubbleWrap.require 'motion/spree/api/product.rb'
 BubbleWrap.require 'motion/spree/api/taxonomy.rb'
 BubbleWrap.require 'motion/spree/api/variant.rb'
+BubbleWrap.require 'motion/spree/api/zone.rb'
 
 #
 # Main Module

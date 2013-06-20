@@ -24,4 +24,5 @@ module Spree
   extend Spree::API::Product
   extend Spree::API::Taxonomy
   extend Spree::API::Variant
+  extend Spree::API::Zone
 end
