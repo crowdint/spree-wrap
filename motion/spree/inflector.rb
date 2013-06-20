@@ -30,4 +30,5 @@ end
 Spree::Inflector.inflection 'cat', 'cats'
 Spree::Inflector.inflection 'country', 'countries'
 Spree::Inflector.inflection 'product', 'products'
+Spree::Inflector.inflection 'taxonomy', 'taxonomies'
 Spree::Inflector.inflection 'variant', 'variants'

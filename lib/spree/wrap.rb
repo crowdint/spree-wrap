@@ -9,6 +9,7 @@ BubbleWrap.require 'motion/spree/inflector.rb'
 BubbleWrap.require 'motion/spree/model.rb'
 BubbleWrap.require 'motion/spree/country.rb'
 BubbleWrap.require 'motion/spree/product.rb'
+BubbleWrap.require 'motion/spree/taxonomy.rb'
 BubbleWrap.require 'motion/spree/variant.rb'
 
 #
@@ -19,6 +20,7 @@ BubbleWrap.require 'motion/spree/api/query.rb'
 BubbleWrap.require 'motion/spree/api/uri.rb'
 BubbleWrap.require 'motion/spree/api/country.rb'
 BubbleWrap.require 'motion/spree/api/product.rb'
+BubbleWrap.require 'motion/spree/api/taxonomy.rb'
 BubbleWrap.require 'motion/spree/api/variant.rb'
 
 #
