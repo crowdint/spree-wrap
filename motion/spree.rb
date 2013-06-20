@@ -1,3 +1,10 @@
+#
+# This module contains all the methods required to consume the Spree API.
+#
+# Refer to the modules on the Spree::API namespace for more information.
+#
+# Spree::API::Product
+#
 module Spree
   #
   # Getter for the endpoint URL

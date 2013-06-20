@@ -8,6 +8,13 @@ module Spree
     #
     # http://api.spreecommerce.com/v1/products/#list-products
     #
+    # This Module is included in the Spree Module so you should call its
+    # methods directly from Spree.
+    #
+    #   Spree.products do |products|
+    #     # ...
+    #   end
+    #
     module Product
       extend Spree::API::ResourceName
       include Spree::API::Query
