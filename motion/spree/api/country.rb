@@ -1,12 +1,12 @@
 module Spree
   module API
     #
-    # This module defines all the API calls related to Countrys.
+    # This module defines all the API calls related to Countries.
     # All results return Spree::Country objects.
     #
     # API Reference
     #
-    # http://api.spreecommerce.com/v1/countries/#list-countries
+    # http://api.spreecommerce.com/v1/countries
     #
     # This Module is included in the Spree Module so you should call its
     # methods directly from Spree.

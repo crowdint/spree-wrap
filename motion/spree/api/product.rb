@@ -6,7 +6,7 @@ module Spree
     #
     # API Reference
     #
-    # http://api.spreecommerce.com/v1/products/#list-products
+    # http://api.spreecommerce.com/v1/products
     #
     # This Module is included in the Spree Module so you should call its
     # methods directly from Spree.
