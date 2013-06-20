@@ -49,6 +49,22 @@ module Spree
       def product(id, &block)
         object_query(Spree::Product, product_uri(id), &block)
       end
+
+      #
+      # To search for a particular product, make a request like this:
+      #
+      #   Spree.product_search("q[name_cont]=Spree") do |p|
+      #     # ...
+      #   end
+      #
+      # The searching API is provided through the Ransack gem which Spree
+      # depends on. The name_cont here is called a predicate, and you can
+      # learn more about them by reading about
+      # {Predicates on the Ransack wiki}[https://github.com/ernie/ransack/wiki/Basic-Searching].
+      #
+      def product_search(query, &block)
+        collection_query("products", Spree::Product, Spree.product_search_uri(query), &block)
+      end
     end
   end
 end

@@ -21,4 +21,10 @@ describe Spree::API::URI do
       Dog.animal_uri(1).should == "http://example.com/api/animals/1"
     end
   end
+
+  describe ".search_uri" do
+    it "builds a search URI" do
+      Dog.animal_search_uri("q").should == "http://example.com/api/animals?q"
+    end
+  end
 end

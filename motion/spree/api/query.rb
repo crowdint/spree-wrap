@@ -5,7 +5,7 @@ module Spree
         if block_given?
           BW::HTTP.get(uri) do |response|
             json       = BW::JSON.parse(response.body.to_str)
-            collection = json[collection_name].map do |object_json|
+            collection = (json[collection_name] || []).map do |object_json|
               object_class.new(object_json)
             end
 
