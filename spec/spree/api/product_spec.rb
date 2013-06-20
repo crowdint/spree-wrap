@@ -1,6 +1,7 @@
 describe Spree::API::Product do
-  extend WebStub::SpecHelpers
-
+  #
+  # Legacy tests, now work as semi-integration tests
+  #
   describe ".products_uri" do
     it "returns the complete URI for the list of products" do
       Spree.products_uri.should == Spree.endpoint + "/products"
