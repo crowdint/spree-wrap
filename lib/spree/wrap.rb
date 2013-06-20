@@ -12,6 +12,7 @@ BubbleWrap.require 'motion/spree/product.rb'
 #
 # API Queries
 #
+BubbleWrap.require 'motion/spree/api/resource_name_helpers.rb'
 BubbleWrap.require 'motion/spree/api/query.rb'
 BubbleWrap.require 'motion/spree/api/uri_helpers.rb'
 BubbleWrap.require 'motion/spree/api/product.rb'

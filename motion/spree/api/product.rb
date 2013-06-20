@@ -9,8 +9,9 @@ module Spree
     # http://api.spreecommerce.com/v1/products/#list-products
     #
     module Product
-      include Query
-      include URIHelpers
+      extend Spree::API::ResourceNameHelpers
+      include Spree::API::Query
+      include Spree::API::URIHelpers
 
       #
       # List products visible to the authenticated user.
