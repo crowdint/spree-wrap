@@ -20,6 +20,7 @@ module Spree
     @endpoint = uri
   end
 
+  extend Spree::API::Country
   extend Spree::API::Product
   extend Spree::API::Variant
 end

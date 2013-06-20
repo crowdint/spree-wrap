@@ -8,7 +8,7 @@ module Spree
   #
   class Inflector
     def self.pluralize(singular)
-      "#{singular}s"
+      (singular == "country") ? "countries" : "#{singular}s"
     end
   end
 end
