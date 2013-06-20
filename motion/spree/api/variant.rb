@@ -29,6 +29,24 @@ module Spree
       def variants(&block)
         collection_query("variants", Spree::Variant, Spree.variants_uri, &block)
       end
+
+      #
+      # To view the details for a single variant, make a request using that
+      # variant's id, along with its product_id:
+      #
+      #   product_id = 1
+      #
+      #   Spree.product_variants(product_id) |v|
+      #     # ...
+      #   end
+      #
+      def product_variants(product_id, &block)
+        collection_query("variants", Spree::Variant, Spree.product_variants_uri(product_id), &block)
+      end
+
+      def product_variants_uri(product_id)
+        Spree.product_uri(product_id) + "/variants"
+      end
     end
   end
 end
