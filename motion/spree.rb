@@ -3,7 +3,11 @@
 #
 # Refer to the modules on the Spree::API namespace for more information.
 #
+# Spree::API::Country
 # Spree::API::Product
+# Spree::API::Taxonomy
+# Spree::API::Variant
+# Spree::API::Zone
 #
 module Spree
   #
