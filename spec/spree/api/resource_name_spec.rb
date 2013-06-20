@@ -1,10 +1,10 @@
 module Foo
   class Cat
-    extend Spree::API::ResourceNameHelpers
+    extend Spree::API::ResourceName
   end
 end
 
-describe Spree::API::ResourceNameHelpers do
+describe Spree::API::ResourceName do
   it "defines the resource_name method" do
     Foo::Cat.resource_name.should == "cat"
   end

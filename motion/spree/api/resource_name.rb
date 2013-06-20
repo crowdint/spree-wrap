@@ -1,6 +1,6 @@
 module Spree
   module API
-    module ResourceNameHelpers
+    module ResourceName
       def resource_name
         @resource_name ||= self.to_s.underscore.split('/').last
       end

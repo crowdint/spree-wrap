@@ -1,6 +1,6 @@
 module Spree
   module API
-    module URIHelpers
+    module URI
       def self.included(base)
         base.send :define_method, "#{base.resource_name_plural}_uri" do
           "#{Spree.endpoint}/#{base.resource_name_plural}"
