@@ -10,18 +10,8 @@
 # Spree::API::Zone
 #
 module Spree
-  #
-  # Getter for the endpoint URL
-  #
-  def self.endpoint
-    @endpoint
-  end
-
-  #
-  # Setter for the endpoint URL
-  #
-  def self.endpoint=(uri)
-    @endpoint = uri
+  class << self
+    attr_accessor :endpoint
   end
 
   extend Spree::API::Country
