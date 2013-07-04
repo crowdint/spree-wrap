@@ -14,6 +14,14 @@ module Spree
     attr_accessor :endpoint
   end
 
+  def self.token
+    App::Persistence['SPREE_TOKEN']
+  end
+
+  def self.token=(value)
+    App::Persistence['SPREE_TOKEN'] = value
+  end
+
   extend Spree::API::Country
   extend Spree::API::Product
   extend Spree::API::ProductProperty
