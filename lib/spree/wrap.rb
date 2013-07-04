@@ -1,4 +1,5 @@
 require "spree/wrap/version"
+require "bubble-wrap"
 require "motion-support/concern"
 
 BubbleWrap.require 'motion/spree/inflector.rb'

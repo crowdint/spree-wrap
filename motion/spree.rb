@@ -10,18 +10,16 @@
 # Spree::API::Zone
 #
 module Spree
-  #
-  # Getter for the endpoint URL
-  #
-  def self.endpoint
-    @endpoint
+  class << self
+    attr_accessor :endpoint
   end
 
-  #
-  # Setter for the endpoint URL
-  #
-  def self.endpoint=(uri)
-    @endpoint = uri
+  def self.token
+    App::Persistence['SPREE_TOKEN']
+  end
+
+  def self.token=(value)
+    App::Persistence['SPREE_TOKEN'] = value
   end
 
   extend Spree::API::Country

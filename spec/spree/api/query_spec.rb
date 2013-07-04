@@ -17,6 +17,7 @@ describe Spree::API::Query do
 
   before do
     disable_network_access!
+    Spree.token = "A-SECRET"
   end
 
   describe "#collection_query" do
@@ -24,6 +25,7 @@ describe Spree::API::Query do
       @uri = "http://example.com/api/foos"
       @data = { foos: [{ id: "1", name: "Foo 1" }, { id: "2", name: "Foo 2" }] }
       stub_request(:get, @uri).
+          with(headers: { "X-Spree-Token" => Spree.token }).
           to_return(json: @data)
 
       Spree::API::Foo.collection_query("foos", Spree::Foo, @uri) do |f|
@@ -49,6 +51,7 @@ describe Spree::API::Query do
       @uri = "http://example.com/api/foos/1"
       @data = { id: "1", name: "Foo 1" }
       stub_request(:get, @uri).
+          with(headers: { "X-Spree-Token" => Spree.token }).
           to_return(json: @data)
 
       Spree::API::Foo.object_query(Spree::Foo, @uri) do |f|
