@@ -3,6 +3,7 @@ require "bubble-wrap"
 require "motion-support/concern"
 
 BubbleWrap.require 'motion/spree/inflector.rb'
+BubbleWrap.require 'motion/spree/auth.rb'
 
 #
 # Models
@@ -12,6 +13,7 @@ BubbleWrap.require 'motion/spree/country.rb'
 BubbleWrap.require 'motion/spree/product.rb'
 BubbleWrap.require 'motion/spree/product_property.rb'
 BubbleWrap.require 'motion/spree/taxonomy.rb'
+BubbleWrap.require 'motion/spree/user.rb'
 BubbleWrap.require 'motion/spree/variant.rb'
 BubbleWrap.require 'motion/spree/zone.rb'
 
