@@ -135,6 +135,8 @@ describe Spree::Auth do
     before do
       disable_network_access!
       Spree.authentication_endpoint = "http://spree.store.com/user/sign_in"
+      Spree.token = nil
+      Spree.cookie = nil
 
       @user = Spree::User.new({
         "email"     => "foo@bar.com",
@@ -161,6 +163,8 @@ describe Spree::Auth do
       @request_headers    = nil
       @status_code        = nil
 
+      reset_stubs
+
       enable_network_access!
     end
 
@@ -185,7 +189,7 @@ describe Spree::Auth do
       it "returns a status code of 200" do
         status_code = nil
         @subject.authenticate!(@user) do |response|
-          status_code = 200
+          status_code = response.status_code
           resume
         end
 
@@ -203,7 +207,7 @@ describe Spree::Auth do
       end
 
       it "sets the cookie" do
-        @subject.authenticate!(@user){ |response| puts " HEADERS: #{response.headers}"; resume }
+        @subject.authenticate!(@user){ |response| resume }
 
         wait_max 1.0 do
           Spree.cookie.should.equal("FooBarishCookie")
@@ -243,7 +247,8 @@ describe Spree::Auth do
         end
 
         wait_max 1.0 do
-          json["errors"].class.should.equal(String)
+          json.class.should.equal(Hash)
+          json["error"].class.should.equal(String)
         end
       end
     end
