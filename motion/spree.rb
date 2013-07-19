@@ -41,6 +41,7 @@ module Spree
   end
 
   extend Spree::API::Country
+  extend Spree::API::Order
   extend Spree::API::Product
   extend Spree::API::ProductProperty
   extend Spree::API::Taxonomy
