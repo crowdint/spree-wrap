@@ -253,4 +253,129 @@ describe Spree::Auth do
       end
     end
   end
+
+  describe "register!" do
+    before do
+      disable_network_access!
+      Spree.registration_endpoint = "http://spree.store.com/user"
+      Spree.token = nil
+      Spree.cookie = nil
+
+      @user = Spree::User.new({
+        "email"                   => "foo@bar.com",
+        "password"                => "FizzBuzz",
+        "password_confirmation"   => "FizzBuzz",
+        "spree_api_key"           => "FooBarishToken"
+      })
+      @payload = BW::JSON.generate(
+        spree_user: {
+          email:                  @user.email,
+          password:               @user.password,
+          password_confirmation:  @user.password
+        }
+      )
+      @request_headers = {
+        "Accept"        => "application/json",
+        "Content-Type"  => "application/json"
+      }
+    end
+
+    after do
+      @user               = nil
+      @data               = nil
+      @payload            = nil
+      @response_headers   = nil
+      @request_headers    = nil
+      @status_code        = nil
+
+      reset_stubs
+
+      enable_network_access!
+    end
+
+    describe "with valid credentials" do
+      before do
+        @data = BW::JSON.generate({
+          "spree_user" => {
+            "email"         => @user.email,
+            "password"      => @user.password,
+            "spree_api_key" => @user.spree_api_key
+          }
+        })
+        @response_headers = {
+          "Set-Cookie" => "FooBarishCookie"
+        }
+        @status_code = 200
+        stub_request(:post, Spree.registration_endpoint).
+          with(body: @payload, headers: @request_headers).
+          to_return(body: @data, headers: @response_headers, status_code: @status_code)
+      end
+
+      it "returns a status code of 200" do
+        status_code = nil
+        @subject.register!(@user) do |response|
+          status_code = response.status_code
+          resume
+        end
+
+        wait_max 1.0 do
+          status_code.should.equal(200)
+        end
+      end
+
+      it "sets the Spree token" do
+        @subject.register!(@user){ |response| resume }
+
+        wait_max 1.0 do
+          Spree.token.should.equal("FooBarishToken")
+        end
+      end
+
+      it "sets the cookie" do
+        @subject.register!(@user){ |response| resume }
+
+        wait_max 1.0 do
+          Spree.cookie.should.equal("FooBarishCookie")
+        end
+      end
+    end
+
+    describe "with invalid credentials" do
+      before do
+        @data = BW::JSON.generate({
+          "error" => "Invalid email or password."
+        })
+        @response_headers = {}
+        @status_code = 401
+        stub_request(:post, Spree.registration_endpoint).
+          with(body: @payload, headers: @request_headers).
+          to_return(body: @data, headers: @response_headers, status_code: @status_code)
+      end
+
+      it "returns a status code of 401" do
+        status_code = nil
+        @subject.register!(@user) do |response|
+          status_code = response.status_code
+          resume
+        end
+
+        wait_max 1.0 do
+          status_code.should.equal(401)
+        end
+      end
+
+      it "returns an error key in the response body" do
+        json = nil
+        @subject.register!(@user) do |response|
+          json = BW::JSON.parse(response.body.to_str)
+          resume
+        end
+
+        wait_max 1.0 do
+          json.class.should.equal(Hash)
+          json["error"].class.should.equal(String)
+        end
+      end
+    end
+  end
 end
