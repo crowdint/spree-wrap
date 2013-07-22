@@ -39,7 +39,11 @@ module Spree
 
       private
       def default_query_headers
-        { headers: { "X-Spree-Token" => Spree.token }}
+        { headers: {
+          "Accept"        => "application/json",
+          "Cookie"        => Spree.cookie,
+          "X-Spree-Token" => Spree.token
+        }}
       end
     end
   end

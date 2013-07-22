@@ -11,7 +11,9 @@
 #
 module Spree
   class << self
-    attr_accessor :endpoint
+    attr_accessor :endpoint,
+                  :authentication_endpoint,
+                  :registration_endpoint
   end
 
   def self.token
@@ -22,7 +24,24 @@ module Spree
     App::Persistence['SPREE_TOKEN'] = value
   end
 
+  def self.order_token
+    App::Persistence['SPREE_ORDER_TOKEN']
+  end
+
+  def self.order_token=(value)
+    App::Persistence['SPREE_ORDER_TOKEN'] = value
+  end
+
+  def self.cookie
+    App::Persistence['SPREE_COOKIE']
+  end
+
+  def self.cookie=(value)
+    App::Persistence['SPREE_COOKIE'] = value
+  end
+
   extend Spree::API::Country
+  extend Spree::API::Order
   extend Spree::API::Product
   extend Spree::API::ProductProperty
   extend Spree::API::Taxonomy
