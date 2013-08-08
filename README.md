@@ -30,6 +30,60 @@ Example:
       # Do something when products are received
     end
 
+## Authentication
+
+Within your application delegate or before accessing the Authentication
+API, set the url to the authentication and registration endpoint.
+
+    Spree.authentication_endpoint = "http://example.com/users/sign_in"
+
+Then you need to create an instance of the User Model to store user's credentials.
+
+    user = Spree::User.new({
+      "email"     => "example@mail.com",
+      "password"  => "somepassword"
+    })
+
+Now you can send the authentication request.
+
+    Auth.authenticate!(user) do |response|
+      if response.ok?
+        Auth.current_user     # => #<Spree::User:0xc195950>
+        App.alert("Successfully authenticated!")
+      else
+        Auth.current_user     # => nil
+        App.alert("Something went terribly wrong")
+      end
+    end
+
+You can use the `response` object to know exactly which status code was
+returned by the server in order to provide feedback about what caused an
+error with `response.status_code`
+
+###Registration
+
+Registering new users can be easily achieved by setting a
+`Spree.registration_endpoint` and an instance of `Spree::User` with
+`email`, `password`, and `password_confirmation`.
+
+    Spree.registration_endpoint = "http://example.com/users"
+
+    user = Spree::User.new({
+      "email"                   => "example@mail.com",
+      "password"                => "somepassword",
+      "password_confirmation"   => "somepassword"
+    })
+
+    Auth.register!(user) do |response|
+      if response.ok?
+        Auth.current_user     # => #<Spree::User:0xc195950>
+        App.alert("Successfully registered!")
+      else
+        Auth.current_user     # => nil
+        App.alert("Something went terribly wrong")
+      end
+    end
+
 ## Contributing
 
 1. Fork it
