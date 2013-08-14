@@ -1,1 +1,4 @@
 language: objective-c
+
+install: "bundle install --binstubs"
+script: "bin/motion-specwrap"
