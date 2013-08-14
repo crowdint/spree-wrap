@@ -1,5 +1,7 @@
 # Spree-Wrap
 
+[![Build Status](https://travis-ci.org/crowdint/spree-wrap.png?branch=master)](https://travis-ci.org/crowdint/spree-wrap)
+
 Consume any compatible Spree API from Ruby Motion
 
 ## Installation
