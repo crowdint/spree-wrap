@@ -187,14 +187,14 @@ describe Spree::Auth do
       end
 
       it "returns a status code of 200" do
-        status_code = nil
+        @status_code = nil
         @subject.authenticate!(@user) do |response|
-          status_code = response.status_code
+          @status_code = response.status_code
           resume
         end
 
-        wait_max 1.0 do
-          status_code.should.equal(200)
+        wait_max 2.0 do
+          @status_code.should.equal(200)
         end
       end
 
@@ -228,27 +228,27 @@ describe Spree::Auth do
       end
 
       it "returns a status code of 401" do
-        status_code = nil
+        @status_code = nil
         @subject.authenticate!(@user) do |response|
-          status_code = response.status_code
+          @status_code = response.status_code
           resume
         end
 
         wait_max 1.0 do
-          status_code.should.equal(401)
+          @status_code.should.equal(401)
         end
       end
 
       it "returns an error key in the response body" do
-        json = nil
+        @json = nil
         @subject.authenticate!(@user) do |response|
-          json = BW::JSON.parse(response.body.to_str)
+          @json = BW::JSON.parse(response.body.to_str)
           resume
         end
 
         wait_max 1.0 do
-          json.class.should.equal(Hash)
-          json["error"].class.should.equal(String)
+          @json.class.should.equal(Hash)
+          @json["error"].class.should.equal(String)
         end
       end
     end
@@ -312,14 +312,14 @@ describe Spree::Auth do
       end
 
       it "returns a status code of 200" do
-        status_code = nil
+        @status_code = nil
         @subject.register!(@user) do |response|
-          status_code = response.status_code
+          @status_code = response.status_code
           resume
         end
 
         wait_max 1.0 do
-          status_code.should.equal(200)
+          @status_code.should.equal(200)
         end
       end
 
@@ -353,27 +353,27 @@ describe Spree::Auth do
       end
 
       it "returns a status code of 401" do
-        status_code = nil
+        @status_code = nil
         @subject.register!(@user) do |response|
-          status_code = response.status_code
+          @status_code = response.status_code
           resume
         end
 
         wait_max 1.0 do
-          status_code.should.equal(401)
+          @status_code.should.equal(401)
         end
       end
 
       it "returns an error key in the response body" do
-        json = nil
+        @json = nil
         @subject.register!(@user) do |response|
-          json = BW::JSON.parse(response.body.to_str)
+          @json = BW::JSON.parse(response.body.to_str)
           resume
         end
 
         wait_max 1.0 do
-          json.class.should.equal(Hash)
-          json["error"].class.should.equal(String)
+          @json.class.should.equal(Hash)
+          @json["error"].class.should.equal(String)
         end
       end
     end
