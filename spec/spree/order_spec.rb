@@ -31,7 +31,9 @@ describe Spree::Order do
 
     describe "with valid tokens" do
       before do
-        Spree.token     = "123123123"
+        Spree.token         = "123123123"
+        Spree.order_number  = nil
+        Spree.order_token   = nil
 
         @data = BW::JSON.generate({
           number: "R064275723",
@@ -44,6 +46,16 @@ describe Spree::Order do
           to_return(headers: @response_headers, body: @data, status_code: @status_code)
       end
 
+      it "sets the order number" do
+        @subject.fetch! do |order, response|
+          resume
+        end
+
+        wait_max 1.0 do
+          Spree.order_number.should.equal(@order.number)
+        end
+      end
+
       it "sets the order token" do
         @subject.fetch! do |order, response|
           resume
@@ -51,6 +63,17 @@ describe Spree::Order do
 
         wait_max 1.0 do
           Spree.order_token.should.equal(@order.token)
+        end
+      end
+
+      it "sets the order instance" do
+        @subject.fetch! do |order, response|
+          resume
+        end
+
+        wait_max 1.0 do
+          Spree::Order.instance.number.should.equal(@order.number)
+          Spree::Order.instance.token.should.equal(@order.token)
         end
       end
 

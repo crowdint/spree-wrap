@@ -32,6 +32,14 @@ module Spree
     App::Persistence['SPREE_ORDER_TOKEN'] = value
   end
 
+  def self.order_number
+    App::Persistence['SPREE_ORDER_NUMBER']
+  end
+
+  def self.order_number=(value)
+    App::Persistence['SPREE_ORDER_NUMBER'] = value
+  end
+
   def self.cookie
     App::Persistence['SPREE_COOKIE']
   end
