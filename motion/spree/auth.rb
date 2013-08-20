@@ -65,6 +65,8 @@ class Spree::Auth
   end
 
   def self.store_current_user(response)
+    json = BW::JSON.parse(response.body)
+    @current_user = Spree::User.new(json)
     Spree.token   = current_user.spree_api_key
     Spree.cookie  = response.headers["Set-Cookie"]
   end
