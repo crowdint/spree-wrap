@@ -141,7 +141,6 @@ describe Spree::Auth do
       @user = Spree::User.new({
         "email"     => "foo@bar.com",
         "password"  => "FizzBuzz",
-        "spree_api_key" => "FooBarishToken"
       })
       @payload = BW::JSON.generate(
         spree_user: {
@@ -171,14 +170,12 @@ describe Spree::Auth do
     describe "with valid credentials" do
       before do
         @data = BW::JSON.generate({
-          "spree_user" => {
-            "email"         => @user.email,
-            "password"      => @user.password,
-            "spree_api_key" => @user.spree_api_key
-          }
+          "email"         => @user.email,
+          "password"      => @user.password,
+          "spree_api_key" => "FooBarishToken"
         })
         @response_headers = {
-          "Set-Cookie" => "FooBarishCookie"
+          "Set-Cookie" => "FooBarishCookie",
         }
         @status_code = 200
         stub_request(:post, Spree.authentication_endpoint).
@@ -265,7 +262,6 @@ describe Spree::Auth do
         "email"                   => "foo@bar.com",
         "password"                => "FizzBuzz",
         "password_confirmation"   => "FizzBuzz",
-        "spree_api_key"           => "FooBarishToken"
       })
       @payload = BW::JSON.generate(
         spree_user: {
@@ -296,11 +292,9 @@ describe Spree::Auth do
     describe "with valid credentials" do
       before do
         @data = BW::JSON.generate({
-          "spree_user" => {
-            "email"         => @user.email,
-            "password"      => @user.password,
-            "spree_api_key" => @user.spree_api_key
-          }
+          "email"         => @user.email,
+          "password"      => @user.password,
+          "spree_api_key" => "FooBarishToken"
         })
         @response_headers = {
           "Set-Cookie" => "FooBarishCookie"
