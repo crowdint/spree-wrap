@@ -37,7 +37,23 @@ describe Spree::Order do
 
         @data = BW::JSON.generate({
           number: "R064275723",
-          token:  "9057c89b50087307"
+          token:  "9057c89b50087307",
+          line_items: [
+            {
+              variant_id: 1,
+              quantity:   1,
+              variant:    {
+                name:       "Foo"
+              }
+            },
+            {
+              variant_id: 2,
+              quantity:   1,
+              variant:    {
+                name:       "Bar"
+              }
+            }
+          ]
         })
         @status_code = 200
 
@@ -85,6 +101,30 @@ describe Spree::Order do
 
         wait_max 1.0 do
           @response.status_code.should.equal(200)
+        end
+      end
+
+      describe "order instance" do
+        it "sets the line_items" do
+          @subject.fetch! do |order, response|
+            resume
+          end
+
+          wait_max 1.0 do
+            Spree::Order.instance.line_items.length.should.equal(2)
+            Spree::Order.instance.line_items.class.should.equal(Array)
+          end
+        end
+
+        it "sets a proper first line_item" do
+          @subject.fetch! do |order, response|
+            resume
+          end
+
+          wait_max 1.0 do
+            Spree::Order.instance.line_items[0]["variant_id"].should.equal(1)
+            Spree::Order.instance.line_items[0]["quantity"].should.equal(1)
+          end
         end
       end
     end
