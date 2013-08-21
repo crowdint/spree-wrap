@@ -55,4 +55,5 @@ module Spree
   extend Spree::API::Taxonomy
   extend Spree::API::Variant
   extend Spree::API::Zone
+  extend Spree::API::LineItem
 end
