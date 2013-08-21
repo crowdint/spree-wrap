@@ -1,7 +1,11 @@
 class Spree::Order
   def self.fetch!(&block)
     Spree.order do |order, response|
-      Spree.order_token = order.token if response.ok?
+      if response.ok?
+        Spree.order_number  = order.number
+        Spree.order_token   = order.token
+        self.instance       = order
+      end
       block.call(order, response)
     end
   end

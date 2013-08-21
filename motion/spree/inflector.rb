@@ -29,6 +29,7 @@ end
 
 Spree::Inflector.inflection 'cat', 'cats'
 Spree::Inflector.inflection 'country', 'countries'
+Spree::Inflector.inflection 'line_item', 'line_items'
 Spree::Inflector.inflection 'product', 'products'
 Spree::Inflector.inflection 'product_property', 'product_properties'
 Spree::Inflector.inflection 'taxon', 'taxons'
