@@ -43,7 +43,7 @@ module Spree
             block.call(line_item, response)
           end
         else
-          BW::HTTP.post(line_items_uri, create_line_item_request(attributes))
+          BW::HTTP.put(line_items_uri(attributes[:id]), create_line_item_request(attributes))
         end
       end
 
