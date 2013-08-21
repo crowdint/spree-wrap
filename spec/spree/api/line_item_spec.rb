@@ -161,7 +161,7 @@ describe Spree::API::LineItem do
       Spree.cookie            = "FooBarishCookie"
       Spree.token             = "FooBarishToken"
 
-      @result = Spree.send(:line_items_request, variant_id: 1, quantity: 1)
+      @result = Spree.send(:create_line_item_request, variant_id: 1, quantity: 1)
     end
 
     after do

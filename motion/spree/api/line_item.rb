@@ -15,7 +15,7 @@ module Spree
 
       def create_line_item(attributes, &block)
         if block_given?
-          BW::HTTP.post(line_items_uri, line_items_request(attributes)) do |response|
+          BW::HTTP.post(line_items_uri, create_line_item_request(attributes)) do |response|
             if response.ok?
               json = BW::JSON.parse response.body
               line_item = Spree::LineItem.new(json)
@@ -32,7 +32,7 @@ module Spree
 
       private
 
-      def line_items_request(options)
+      def create_line_item_request(options)
         {
           payload: BW::JSON.generate({
             line_item: {
