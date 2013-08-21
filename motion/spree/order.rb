@@ -6,7 +6,7 @@ class Spree::Order
         Spree.order_token   = order.token
         self.instance       = order
       end
-      block.call(order, response)
+      block.call(order, response) if block_given?
     end
   end
 
