@@ -165,4 +165,88 @@ describe Spree::Order do
       @subject.instance.class.should.equal(Spree::Order)
     end
   end
+
+  describe "#refresh" do
+    before do
+      disable_network_access!
+
+      @previous_endpoint    = Spree.endpoint
+      @previous_cookie      = Spree.cookie
+
+      Spree.endpoint  = "https://spree.store.com/api"
+      Spree.cookie    = "FooBarishCookie"
+
+      @order = Spree::Order.new({
+        "number"  => "R064275723",
+        "token"   => "9057c89b50087307"
+      })
+
+      @request_headers = {
+        "Accept"        => "application/json",
+        "Cookie"        => Spree.cookie,
+        "X-Spree-Token" => Spree.token
+      }
+
+      @request = { headers: @request_headers }
+
+      @response_headers = {
+        "Content-Type" => "application/json"
+      }
+
+      @data = BW::JSON.generate({
+        number:       "R064275723",
+        token:        "9057c89b50087307",
+        line_items:   [
+          {
+            id: 1,
+            variant_id: 1,
+            quantity: 1,
+            price: 100
+          },
+          {
+            id: 2,
+            variant_id: 2,
+            quantity: 3,
+            price: 200
+          }
+        ]
+      })
+
+      @response = {body: @data, headers: @response_headers}
+
+      @instance = @subject.instance
+
+    end
+
+    after do
+      enable_network_access!
+
+      Spree.endpoint  = @previous_endpoint
+      Spree.cookie    = @previous_cookie
+    end
+
+    describe "when a valid order has been fetched" do
+      before do
+        stub_request(:get, "#{Spree.endpoint}/orders/#{Spree.order_number}").
+          with(@request).
+          to_return(@response)
+      end
+
+      it "sets line_items to be a two item collection" do
+        @instance.refresh do |collection, response|
+          resume
+        end
+
+        wait_max 1.0 do
+          @instance.line_items.to_a.length.should.equal(2)
+        end
+      end
+
+      describe "returned line_items" do
+        it "have a price of 100 in the first line_item" do
+          @instance.line_items.to_a.first[:price].should.equal(100)
+        end
+      end
+    end
+  end
 end

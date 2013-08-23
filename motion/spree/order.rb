@@ -19,6 +19,16 @@ class Spree::Order
     @instance = value if value.class == Spree::Order
   end
 
+  def refresh(&block)
+    block_present = block_given?
+    Spree.current_order do |order, response|
+      self.line_items = order.line_items
+      if block_present
+        block.call order.line_items, response
+      end
+    end
+  end
+
   include Spree::Model
 
   define_model_attributes :id, :number, :item_total, :total, :state,
