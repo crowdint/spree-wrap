@@ -30,6 +30,12 @@ class Spree::Auth
     end
   end
 
+  def self.sign_out!(&b)
+    @current_user = nil
+    Spree.token   = nil
+    Spree.cookie  = nil
+  end
+
   def self.authentication_request
     { headers: default_headers, payload: credentials }
   end
