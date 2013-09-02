@@ -372,4 +372,28 @@ describe Spree::Auth do
       end
     end
   end
+
+  describe ".sign_out!" do
+    before do
+      Spree.token = "foo token"
+      Spree.cookie = "foo cookie"
+      Spree::Auth.instance_eval do
+        @current_user = Spree::User.new(email: "foobar@baz.com", password: "FooBarBaz")
+      end
+
+      Spree::Auth.sign_out!
+    end
+
+    it "unsets the Spree.token" do
+      Spree.token.should.equal(nil)
+    end
+
+    it "unsets the Spree.cookie" do
+      Spree.cookie.should.equal(nil)
+    end
+
+    it "unsets the current user" do
+      Spree::Auth.current_user.should.equal(nil)
+    end
+  end
 end
