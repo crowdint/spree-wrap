@@ -25,4 +25,35 @@ describe Spree::Model do
       @object.name.should == "Theodore"
     end
   end
+
+  describe "#to_json" do
+    describe "without nested attributes" do
+      before do
+        @klass.define_model_attributes :id, :name
+        @object = @klass.new("id" => 1, "name" => "Panda")
+      end
+
+      it "returns json representation of the model" do
+        expected = '{"id":1,"name":"Panda"}'
+        @object.to_json.should.equal expected
+      end
+    end
+
+    describe "with nested attributes" do
+      before do
+        @klass.define_model_attributes :id, :name, :nested
+        @object = @klass.new("id" => 1,
+                              "name" => "Panda",
+                              "nested" => {
+                                :kung => "fu",
+                                :ping => "pong"
+                              })
+      end
+
+      it "returns json representation of the model" do
+        expected = '{"id":1,"name":"Panda","nested":{"kung":"fu","ping":"pong"}}'
+        @object.to_json.should.equal expected
+      end
+    end
+  end
 end

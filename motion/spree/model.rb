@@ -28,5 +28,15 @@ module Spree
         send("#{attr}=", attributes[attr.to_s])
       end
     end
+
+    #
+    # Returns the JSON representation of a model
+    #
+    def to_json
+      BW::JSON.generate(self.attributes.reduce({}) do |json, attr|
+        json[attr] = send(attr.to_s)
+        json
+      end)
+    end
   end
 end
