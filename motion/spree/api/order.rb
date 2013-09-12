@@ -17,9 +17,17 @@ module Spree
         "#{Spree.endpoint}/orders/#{Spree.order_number}"
       end
 
+      def current_checkout_uri
+        "#{Spree.endpoint}/checkouts/#{Spree.order_number}"
+      end
+
+      def checkout_next_state_uri
+        "#{Spree.endpoint}/checkouts/#{Spree.order_number}/next"
+      end
+
       def advance_current_order(&block)
         if block_given?
-          BW::HTTP.put(current_order_uri, w_request) do |response|
+          BW::HTTP.put(checkout_next_state_uri, w_request) do |response|
             json = BW::JSON.parse(response.body)
             Spree::Order.instance = Spree::Order.new(json) if response.ok?
             block.call(json, response)

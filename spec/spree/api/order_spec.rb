@@ -41,7 +41,7 @@ describe Spree::API::Order do
           }
         }
 
-        stub_request(:put, Spree.current_order_uri).with(@request).to_return(@response)
+        stub_request(:put, Spree.checkout_next_state_uri).with(@request).to_return(@response)
       end
 
       it "sets the state of the order to 'address'" do
@@ -88,7 +88,7 @@ describe Spree::API::Order do
           }
         }
 
-        stub_request(:put, Spree.current_order_uri).with(@request).to_return(@response)
+        stub_request(:put, Spree.checkout_next_state_uri).with(@request).to_return(@response)
       end
 
       it "sets the state of the order to 'address'" do
